@@ -490,6 +490,12 @@
     if (vis && !termOn) { termOn = true; replay(); } else if (!vis) { termOn = false; termRun++; }
   }, { threshold: 0.3 }).observe(term);
 
+  /* ---------- citation ---------- */
+  document.getElementById("copyCite").addEventListener("click", async (e) => {
+    try { await navigator.clipboard.writeText(document.getElementById("bibtex").textContent); e.target.textContent = "Copied"; } catch { e.target.textContent = "Select and copy"; }
+    setTimeout(() => (e.target.textContent = "Copy BibTeX"), 1600);
+  });
+
   /* ---------- downloads ---------- */
   const D = window.GRANUM_DOWNLOADS || {};
   const dlg = document.getElementById("dlg"), agree = document.getElementById("agree"), go = document.getElementById("dlgGo");

@@ -134,6 +134,20 @@ code { font: .9em "JetBrains Mono", monospace; background: color-mix(in srgb, va
 .term-note { margin: 0; padding: .7rem 1.1rem .9rem; font-size: .78rem; color: #7f97a8; border-top: 1px solid #1d2f3d; }
 @keyframes lnIn { from { opacity: 0; transform: translateY(6px); } }
 
+/* paper */
+.paper-link { margin: 1.1rem 0 0; font-size: .92rem; }
+.paper-link a { color: #8fd3df; font-weight: 600; text-decoration: none; }
+.paper-link a:hover { text-decoration: underline; }
+.paper-link span { color: #7f97a8; font: .8rem "JetBrains Mono", monospace; margin-left: .5rem; }
+.paper { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2rem; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.4rem, 3vw, 2.4rem); box-shadow: var(--shadow); }
+.paper h2 { font-size: clamp(1.4rem, 2.6vw, 2rem); }
+.paper .btn-ghost { color: var(--teal); }
+.doi { font: 500 .85rem "JetBrains Mono", monospace; }
+.cite { background: #0e1822; border-radius: 12px; overflow: hidden; min-width: 0; }
+.cite-head { display: flex; justify-content: space-between; align-items: center; padding: .7rem 1rem; color: #cfe0ea; border-bottom: 1px solid #1d2f3d; font-size: .9rem; }
+.cite .copy { position: static; }
+.cite pre { margin: 0; padding: 1rem; color: #d9e6ef; font: .8rem/1.6 "JetBrains Mono", monospace; overflow-x: auto; }
+
 /* figures */
 .bench-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 .fig { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow); cursor: zoom-in; }
@@ -194,6 +208,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--teal); outl
 .foot { background: #0b1620; color: #b9c6d2; padding: 2rem 0; }
 .foot-in { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .foot b { color: #fff; }
+.foot a { color: #8fd3df; }
 .foot .small { color: #8297a8; }
 
 /* dialogs */
@@ -213,7 +228,7 @@ dialog::backdrop { background: rgba(5, 12, 18, .6); backdrop-filter: blur(3px); 
 
 @media (max-width: 960px) {
   .grid3, .bench-grid { grid-template-columns: 1fr 1fr; }
-  .split, .editions, .apps, .ag-grid { grid-template-columns: 1fr; }
+  .split, .editions, .apps, .ag-grid, .paper { grid-template-columns: 1fr; }
   .stats-in { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 720px) {
