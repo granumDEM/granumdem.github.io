@@ -1,0 +1,26 @@
+GRANUM EDUCATION EDITION - LICENCE
+Version 1.0, October 2026
+
+Copyright (c) 2026 Sompote Youwai, King Mongkut's University of Technology Thonburi (KMUTT).
+
+1. Grant. You may install and use the Granum Education edition free of charge for teaching,
+   for learning and for non-commercial academic research at a school, college or university.
+
+2. Not permitted. You may not use the Education edition, or its reports, pictures, animations
+   or results, for commercial work, consulting, design of real structures for a fee, or any
+   work done for a client. You may not remove or hide the Education watermark, sell or rent the
+   software, or redistribute it outside your own course or research group.
+
+3. Limits. The Education edition limits a model to 50,000 particles, calculates on the local
+   computer only, and marks its reports and pictures as Education output. An Academic Research
+   licence without the particle limit, and a Professional licence for commercial use, are
+   available on request from sompote.you@kmutt.ac.th.
+
+4. Citation. If you publish work that uses Granum, please cite:
+   Youwai, S. (2026). Granum: an agentic, GPU-accelerated discrete element program for soil.
+
+5. No warranty. The software is provided "as is", without warranty of any kind. The authors are
+   not liable for any claim or damage arising from its use. Results of numerical models must be
+   checked by a qualified engineer before they inform any decision.
+
+6. Termination. This licence ends automatically if you break its terms.

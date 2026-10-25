@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Granum — GPU discrete elements for soil</title>
+<meta name="description" content="Granum is a discrete element program for soil: CPU, CUDA and wgpu engines, compressible clay aggregates for natural and cemented clay, pore pressure and consolidation, staged field models and an AI agent.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Granum home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="13" cy="27" r="9" class="m1"/><circle cx="28" cy="25" r="7" class="m2"/>
+        <circle cx="22" cy="12" r="6" class="m3"/><circle cx="33" cy="10" r="3" class="m2"/>
+        <circle cx="8" cy="11" r="2.5" class="m3"/>
+      </svg>
+      <span>Granum</span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#agents">Agents</a>
+      <a href="#clay">Clay model</a>
+      <a href="#bench">Benchmarks</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#editions">Editions</a>
+      <a href="#contact" class="btn btn-sm">Contact</a>
+    </nav>
+    <button class="menu" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <canvas id="dem" aria-label="A live 2D discrete element simulation: grains settle in layers, then a footing is pushed into them and the force chains light up"></canvas>
+  <div class="hero-shade"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Discrete element method · Rust · CUDA · MCP-ready</p>
+    <h1>Soil, grain by grain,<br><span class="grad">at GPU speed.</span></h1>
+    <p class="lead">Granum simulates sand, soft clay and cement-admixed clay as particles. It runs laboratory tests and staged field models on one GPU, and an AI agent can build, run and report them for you.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#editions">Download Education edition</a>
+      <a class="btn btn-ghost" href="#contact">Professional edition — contact us</a>
+    </div>
+    <p class="stage-tag" id="stageTag" aria-live="off">Stage 1 · Generating grains</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap stats-in">
+    <div class="stat reveal"><b data-count="502797">0</b><span>particles in one field model on one GPU</span></div>
+    <div class="stat reveal"><b data-count="18">0</b><span>sand triaxial tests at once in 72 s</span></div>
+    <div class="stat reveal"><b data-count="2.4" data-dec="1" data-suffix="×10⁸">0</b><span>particle-steps per second, RTX 5090</span></div>
+    <div class="stat reveal"><b data-count="3">0</b><span>engines: CUDA, wgpu (Metal/Vulkan/DX12), CPU</span></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="sec">
+  <div class="wrap">
+    <h2 class="reveal">Built around the tests and models of geotechnical practice</h2>
+    <p class="sub reveal">A project is a laboratory test or a staged model built like a finite element model. The same project file runs in the desktop app, from a script, through the AI agent, or as a batch on a remote GPU.</p>
+    <div class="grid3">
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h2M7 14h2M11 10h2M11 14h2M15 10h2M15 14h2"/></svg></div>
+        <h3>Three engines, one algorithm</h3>
+        <p>A double-precision CPU engine, a CUDA engine compiled at run time with NVRTC, and a wgpu engine for Metal, Vulkan and DirectX 12. Kahan-compensated positions keep single precision honest.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><circle cx="16" cy="14" r="3"/><circle cx="13" cy="7" r="2.5"/></svg></div>
+        <h3>Laboratory tests built in</h3>
+        <p>Drained and undrained triaxial, stress-path CIU, oedometer, unconfined compression, Brazilian, deposition, angle of repose and shallow footing, each with its summary values and quality checks.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V12l4-3 4 3v8M13 20v-6l4-3 2 1.5V20"/></svg></div>
+        <h3>Staged field models</h3>
+        <p>Regions, rigid structures, DCM columns, mats and walls, placed, cured, loaded and excavated in phases, with settlement plates, inclinometers and piezometers recorded over time.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8"/></svg></div>
+        <h3>Pore pressure and consolidation</h3>
+        <p>An excess pore pressure on a coarse grid, undrained or consolidating by Darcy flow, with an energy-consistent force on the grains and a time scale that runs months of consolidation in seconds.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16v10H8l-4 4z"/><path d="M8 10h8M8 13h5"/></svg></div>
+        <h3>AI agent and MCP server</h3>
+        <p>A Model Context Protocol server with 33 tools lets an LLM agent create a project, run it, read the results and write the report, while you watch every step in the app.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M4 4v14h16"/></svg></div>
+        <h3>Calibration at scale</h3>
+        <p>Many specimens run at once on one card, so Latin hypercube and local searches can test every candidate on every test with repeated packings, and finish in hours instead of weeks.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section id="agents" class="sec agents">
+  <div class="wrap">
+    <div class="ag-head reveal">
+      <p class="eyebrow">MCP-ready</p>
+      <h2>Built for agents, not adapted to them</h2>
+      <p class="sub">The Model Context Protocol server is part of Granum itself. Start the program with <code>--mcp</code> and any MCP client sees its 33 tools, so there is no adaptor, plugin, Python wrapper or separate MCP server to install and keep in step with the solver.</p>
+      <div class="badges">
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>No adaptor</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>No separate MCP server</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>stdio or HTTP</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>Same project files as the app</span>
+      </div>
+    </div>
+
+    <div class="ag-grid">
+      <div class="ag-connect reveal">
+        <h3>Connect in one line</h3>
+        <div class="tabs small-tabs" role="tablist" id="mcpTabs">
+          <button role="tab" aria-selected="true" data-snip="cc">Claude Code</button>
+          <button role="tab" aria-selected="false" data-snip="json">Desktop clients</button>
+          <button role="tab" aria-selected="false" data-snip="http">Remote GPU (HTTP)</button>
+        </div>
+        <div class="code">
+          <button class="copy" aria-label="Copy">Copy</button>
+<pre id="snip-cc"><code><span class="c"># register Granum's built-in MCP server</span>
+claude mcp add granum -- granum --mcp</code></pre>
+<pre id="snip-json" hidden><code><span class="c">// Claude Desktop, Cursor and other MCP clients</span>
+{
+  "mcpServers": {
+    "granum": { "command": "granum", "args": ["--mcp"] }
+  }
+}</code></pre>
+<pre id="snip-http" hidden><code><span class="c"># on the GPU machine: the same tools over HTTP, with a token</span>
+granum-server --http 0.0.0.0:8787 --token $TOKEN
+<span class="c"># the app and agents then calculate on that GPU</span></code></pre>
+        </div>
+        <p class="small">The commands are <code>granum</code> and <code>granum-server</code>. The built-in chat assistant uses the same server, so a model an agent builds opens in the app and the other way round.</p>
+
+        <h3 class="mt">33 tools, the whole workflow</h3>
+        <div class="tools" id="tools"></div>
+      </div>
+
+      <div class="term reveal" aria-label="Replay of an agent building, running and reporting an oedometer test through Granum's MCP tools">
+        <div class="wbar"><i></i><i></i><i></i><span>agent ⇄ granum (MCP)</span></div>
+        <div class="term-body" id="term"></div>
+        <p class="term-note">Replay of a live run: DeepSeek V4.1 Flash through the built-in TigrimOS chat set up, ran and reported the test in 25 s.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAY MODEL -->
+<section id="clay" class="sec alt">
+  <div class="wrap split">
+    <div class="reveal">
+      <p class="eyebrow">New particle</p>
+      <h2>Compressible clay aggregates</h2>
+      <p>In Granum a clay particle is a coarse-grained lump of saturated clay fabric. It shrinks as its own mean stress rises, along a normal compression line with unloading lines and creep, so the radius of every particle follows the consolidation of the clay around it.</p>
+      <p>Neighbouring aggregates touch through an adhesive, hysteretic contact whose stiffness grows with the aggregate's yield stress. In cement-admixed clay, bonds nucleate and grow during a simulated curing in proportion to the local cement-to-water ratio and the degree of hydration, and an aggregate that loses its bonds loses part of its yield stress.</p>
+      <ul class="ticks">
+        <li>One particle for soft, stiff and cement-admixed Bangkok clay</li>
+        <li>Water content and mix ratio set the start state, with no parameter fitted mix by mix</li>
+        <li>Shear strength and the critical state emerge from the assembly and are not prescribed</li>
+      </ul>
+    </div>
+    <figure class="cca reveal">
+      <canvas id="cca" aria-label="Animation of compressible clay aggregates shrinking under load while their state moves down the compression line"></canvas>
+      <figcaption>Illustration: under load the aggregates shrink along their compression line (right); on unloading they swell back along an unloading line.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- BENCHMARKS -->
+<section id="bench" class="sec">
+  <div class="wrap">
+    <h2 class="reveal">Verified, then measured</h2>
+    <p class="sub reveal">Each benchmark is reported with its run time on the GPU that ran it, including the places where the model still falls short.</p>
+
+    <div class="bench-grid">
+      <figure class="fig reveal" data-full="img/fig_chung_ooi.jpg">
+        <img src="img/fig_chung_ooi.jpg" alt="Chung and Ooi impact benchmarks: Granum against Hertz theory and Kratos" loading="lazy">
+        <figcaption><b>Impact benchmarks.</b> Chung &amp; Ooi (2011): Hertz's solutions within 0.1 %, oblique impacts within 0.2° of Kratos above 15°.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/fig_penetration.jpg">
+        <img src="img/fig_penetration.jpg" alt="DEM8 penetration benchmark against eight codes" loading="lazy">
+        <figcaption><b>DEM8 penetration.</b> Inside the band of eight open-source codes for 25,000–100,000 particles, in 2.3–12.7 min on an RTX 3090.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/fig_consol.jpg">
+        <img src="img/fig_consol.jpg" alt="Consolidation of a granular layer against Terzaghi's solution" loading="lazy">
+        <figcaption><b>Consolidation.</b> Settlement follows Terzaghi to within 0.05 of the drained value up to half consolidation, and to the end on a 2.5 mm grid.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/fig_soft_stress_paths.jpg">
+        <img src="img/fig_soft_stress_paths.jpg" alt="Effective stress paths of soft Bangkok clay, measured and simulated" loading="lazy">
+        <figcaption><b>Soft Bangkok clay.</b> Undrained strength within 16 % in five CIU tests; the pore pressure is 13–21 % low, which the paths show openly.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/fig_cem_curves.jpg">
+        <img src="img/fig_cem_curves.jpg" alt="Cement-admixed Bangkok clay: stress-strain, pore pressure and stress paths" loading="lazy">
+        <figcaption><b>Cement-admixed clay.</b> Peak at about 2 % strain and softening; 78 % of 27 CIU peaks within a factor of 1.5.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/fig_ucs_joint.jpg">
+        <img src="img/fig_ucs_joint.jpg" alt="Unconfined strength of 88 cement-admixed clay tests" loading="lazy">
+        <figcaption><b>88 unconfined tests.</b> Correlation 0.93 in logarithm; 7- and 14-day strengths predicted without being fitted.</figcaption>
+      </figure>
+    </div>
+
+    <div class="perf reveal">
+      <h3>Time per step on one GPU</h3>
+      <p class="sub small">Measured with the CUDA engine. Large models run at about 10⁸ to 2.4×10⁸ particle-steps per second.</p>
+      <div id="bars" class="bars" role="list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="sec alt">
+  <div class="wrap">
+    <h2 class="reveal">From the laboratory to the field</h2>
+    <div class="apps">
+      <figure class="fig wide reveal" data-full="img/fig_wall_stages3d.jpg">
+        <img src="img/fig_wall_stages3d.jpg" alt="Staged DEM model of the Wang Noi compound DCM wall" loading="lazy">
+        <figcaption><b>Compound DCM wall, Wang Noi.</b> 254,530 particles in a 1.5 m slice: stiff and soft clay, DCM columns, a stabilised mat, a precast wall, an embankment and a two-stage excavation, with 44,838 cement bonds grown during curing. About two hours on one RTX 5090.</figcaption>
+      </figure>
+      <figure class="fig reveal" data-full="img/embankment_section.jpg">
+        <img src="img/embankment_section.jpg" alt="Section through an embankment on DCM and stiffened DCM piles" loading="lazy">
+        <figcaption><b>Embankment on cement columns.</b> About 785,000 particles, settlement since the end of curing.</figcaption>
+      </figure>
+      <div class="appnote reveal">
+        <h3>Bangna–Bangpakong embankment</h3>
+        <p>A unit cell of 49,503 particles consolidates for 470 field days at 0.24 ms per step, and a half-section of 502,797 particles records settlement, lateral movement and excess pore pressure at 58 monitors as it consolidates.</p>
+        <h3>Sand fill from the literature</h3>
+        <p>Eighteen drained triaxial tests ran at once on one card in 72 s to choose a fill whose friction angle is 30°.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="sec">
+  <div class="wrap">
+    <h2 class="reveal">The desktop app</h2>
+    <p class="sub reveal">Input, test, output and agent views of the same cemented-clay project.</p>
+    <div class="tabs reveal" role="tablist">
+      <button role="tab" aria-selected="true" data-shot="img/shot_input.jpg">Input</button>
+      <button role="tab" aria-selected="false" data-shot="img/shot_test.jpg">Test</button>
+      <button role="tab" aria-selected="false" data-shot="img/shot_output.jpg">Output</button>
+      <button role="tab" aria-selected="false" data-shot="img/shot_agent.jpg">AI agent</button>
+    </div>
+    <div class="window reveal">
+      <div class="wbar"><i></i><i></i><i></i><span>Granum — cemented_clay_ciu.tellusdem</span></div>
+      <img id="shot" src="img/shot_input.jpg" alt="Granum desktop app screenshot">
+    </div>
+  </div>
+</section>
+
+<!-- EDITIONS -->
+<section id="editions" class="sec alt">
+  <div class="wrap">
+    <h2 class="reveal">Editions</h2>
+    <p class="sub reveal">The same solver in both. Choose by how you will use it.</p>
+    <div class="editions">
+      <article class="ed reveal">
+        <p class="tag">For students and teachers</p>
+        <h3>Education</h3>
+        <p class="price">Free</p>
+        <ul class="ticks">
+          <li>Desktop app with all built-in laboratory tests</li>
+          <li>CPU, CUDA and wgpu engines</li>
+          <li>Compressible clay aggregates and cement bonds</li>
+          <li>Staged models, pore pressure and consolidation</li>
+          <li>AI agent and built-in MCP server</li>
+        </ul>
+        <div class="limits">
+          <b>Education limits</b>
+          <span>Up to 50,000 particles per model</span>
+          <span>Calculates on your own computer</span>
+          <span>Reports and pictures carry an Education watermark</span>
+        </div>
+        <p class="fine">For teaching and non-commercial academic research. Need larger models for your research? Ask for a free <a href="#contact" data-research>Academic Research licence</a>.</p>
+        <div class="dl">
+          <button class="btn btn-primary" data-os="macos">macOS</button>
+          <button class="btn btn-primary" data-os="windows">Windows</button>
+          <button class="btn btn-primary" data-os="linux">Linux</button>
+        </div>
+      </article>
+      <article class="ed pro reveal">
+        <p class="tag">For engineering practice</p>
+        <h3>Professional</h3>
+        <p class="price">On request</p>
+        <ul class="ticks">
+          <li>Licence for commercial and consulting projects</li>
+          <li>Technical support from the developers</li>
+          <li>Help with calibration on your laboratory data</li>
+          <li>Batch runs on cloud GPUs</li>
+          <li>Training for your team</li>
+        </ul>
+        <p class="fine">Tell us about your project and we will reply with a licence offer.</p>
+        <div class="dl"><a class="btn btn-ghost" href="#contact" data-pro>Contact us</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec">
+  <div class="wrap split">
+    <div class="reveal">
+      <h2>Contact us</h2>
+      <p>For the Professional edition, collaboration, or questions about the models, write to us. The form opens your email program with the message filled in.</p>
+      <p class="addr">
+        <b>Sompote Youwai</b><br>
+        King Mongkut's University of Technology Thonburi<br>
+        Bangkok, Thailand<br>
+        <a href="mailto:sompote.you@kmutt.ac.th">sompote.you@kmutt.ac.th</a>
+      </p>
+    </div>
+    <form id="contactForm" class="form reveal" novalidate>
+      <div class="row2">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+      </div>
+      <label>Organisation<input name="org" autocomplete="organization"></label>
+      <label>Interested in
+        <select name="topic">
+          <option>Professional edition licence</option>
+          <option>Education edition</option>
+          <option>Academic Research licence</option>
+          <option>Calibration or project modelling</option>
+          <option>Research collaboration</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Message<textarea name="msg" rows="5" required placeholder="Your project, the soils and tests involved, and the number of seats"></textarea></label>
+      <button class="btn btn-primary" type="submit">Send</button>
+      <p class="form-note" id="formNote" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <b>Granum</b> — discrete elements for soil.<br>
+      <span class="small">Youwai, S. (2026). Granum: an agentic, GPU-accelerated discrete element program for soil. Manuscript in preparation.</span>
+    </div>
+    <div class="small">© 2026 King Mongkut's University of Technology Thonburi</div>
+  </div>
+</footer>
+
+<!-- download dialog -->
+<dialog id="dlg">
+  <form method="dialog" class="dlg-in">
+    <h3>Granum Education edition</h3>
+    <p id="dlgOs" class="small"></p>
+    <label class="check"><input type="checkbox" id="agree"> I will use Granum for teaching or non-commercial academic research only.</label>
+    <div class="dlg-act">
+      <button class="btn btn-ghost" value="cancel">Cancel</button>
+      <a class="btn btn-primary disabled" id="dlgGo" href="#" aria-disabled="true">Download</a>
+    </div>
+    <p class="small dlg-meta"><a href="LICENSE-EDUCATION.txt" target="_blank">Licence</a> · <a href="https://github.com/granumDEM/granumdem.github.io/releases/latest" target="_blank">All releases and checksums</a> · <a href="README-EDUCATION.txt" target="_blank">Quick start</a></p>
+    <p class="small" id="dlgMissing" hidden>This build is not online yet. <a href="#contact" id="dlgAsk">Ask us for a copy.</a></p>
+  </form>
+</dialog>
+
+<!-- lightbox -->
+<dialog id="lb"><img alt=""><form method="dialog"><button class="lb-x" aria-label="Close">×</button></form></dialog>
+
+<script src="downloads/config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
