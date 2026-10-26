@@ -34,4 +34,4 @@ EDUCATION LIMITS
   - calculations on this computer only (no remote GPU server)
   - reports, pictures and animations carry an Education watermark
   For teaching and non-commercial academic research only: see LICENSE-EDUCATION.txt.
-  Academic Research and Professional licences: sompote.you@kmutt.ac.th
+  Academic Research and Professional licences: tellusfem@gmail.com

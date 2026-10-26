@@ -531,7 +531,7 @@
     if (!name || !/^\S+@\S+\.\S+$/.test(email) || !msg) { note.textContent = "Please give your name, a valid email and a message."; return; }
     const subject = `Granum: ${f.get("topic")}`;
     const body = `Name: ${name}\nEmail: ${email}\nOrganisation: ${f.get("org") || "-"}\nInterested in: ${f.get("topic")}\n\n${msg}`;
-    location.href = `mailto:sompote.you@kmutt.ac.th?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    note.textContent = "Your email program should open with the message. If it does not, write to sompote.you@kmutt.ac.th.";
+    location.href = `mailto:tellusfem@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    note.textContent = "Your email program should open with the message. If it does not, write to tellusfem@gmail.com.";
   });
 })();

@@ -14,7 +14,7 @@ Copyright (c) 2026 Sompote Youwai, King Mongkut's University of Technology Thonb
 3. Limits. The Education edition limits a model to 50,000 particles, calculates on the local
    computer only, and marks its reports and pictures as Education output. An Academic Research
    licence without the particle limit, and a Professional licence for commercial use, are
-   available on request from sompote.you@kmutt.ac.th.
+   available on request from tellusfem@gmail.com.
 
 4. Citation. If you publish work that uses Granum, please cite:
    Youwai, S. (2026). Granum: an agentic, GPU-accelerated discrete element program for soil.
