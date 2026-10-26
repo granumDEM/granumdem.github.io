@@ -28,6 +28,7 @@
       <a href="#agents">Agents</a>
       <a href="#clay">Clay model</a>
       <a href="#bench">Benchmarks</a>
+      <a href="#dynamic">Dynamics</a>
       <a href="#gallery">Gallery</a>
       <a href="#editions">Editions</a>
       <a href="manual.html">Manual</a>
@@ -221,8 +222,43 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
   </div>
 </section>
 
+<!-- DYNAMICS -->
+<section id="dynamic" class="sec alt">
+  <div class="wrap">
+    <p class="badge-ed reveal">Professional and Academic Research editions</p>
+    <h2 class="reveal">Dynamic granular flow</h2>
+    <p class="sub reveal">Silos and hoppers, rotating drums, collapsing slopes, impacts and tamping, in real time with no numerical damping. Hopper and drum walls that turn, rigid weights that fall freely, sinks that weigh the outflow, and initial states read from a file. Each case is checked against the open-source codes of the DEM8 benchmark or a laboratory law. Not included in the Education edition.</p>
+    <div class="bench-grid">
+      <figure class="fig vid reveal">
+        <video src="video/silo.mp4" poster="video/silo.jpg" autoplay muted loop playsinline preload="metadata" aria-label="DEM8 silo emptying"></video>
+        <figcaption><b>DEM8 silo emptying.</b> Flow rates of 100,000 grains within 0.7–1.9 % of the band of eight open-source codes (Dosta et al. 2024); large to small orifice 3.10, against 3.10 ± 0.06.</figcaption>
+      </figure>
+      <figure class="fig vid reveal">
+        <video src="video/drum.mp4" poster="video/drum.jpg" autoplay muted loop playsinline preload="metadata" aria-label="DEM8 rotating drum"></video>
+        <figcaption><b>DEM8 rotating drum.</b> Turning shell and end plates. Small grains in a quadrant follow seven codes within 246 grains rms, and the segregation waves peak within 0.04 s of theirs.</figcaption>
+      </figure>
+      <figure class="fig vid reveal">
+        <video src="video/hopper.mp4" poster="video/hopper.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Hoppers and Beverloo"></video>
+        <figcaption><b>Hoppers and Beverloo.</b> Discharge through orifices of 5–10 grain diameters follows Beverloo's law with C = 0.54 and k = 1.51; a 4-diameter orifice jams, as frictional grains do.</figcaption>
+      </figure>
+      <figure class="fig vid reveal">
+        <video src="video/collapse.mp4" poster="video/collapse.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Column collapse"></video>
+        <figcaption><b>Column collapse.</b> A sand calibrated on its angle of repose reproduces the runout of Lube et al. and the final height of Lajeunesse et al. for aspect ratios of 0.5 to 8.</figcaption>
+      </figure>
+      <figure class="fig vid reveal">
+        <video src="video/impact.mp4" poster="video/impact.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Impact on sand"></video>
+        <figcaption><b>Impact on sand.</b> A steel ball penetrates 0.72–0.94 times Uehara et al.'s law, and stops in a time nearly independent of the impact speed, as Katsuragi and Durian found.</figcaption>
+      </figure>
+      <figure class="fig vid reveal">
+        <video src="video/tamper.mp4" poster="video/tamper.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Dynamic compaction"></video>
+        <figcaption><b>Dynamic compaction.</b> A free 10 t tamper dropped from 5 to 15 m onto a 16 m loose fill reaches a depth of influence of 0.47–0.59 √(WH), within the field range of Mayne et al.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- APPLICATIONS -->
-<section class="sec alt">
+<section class="sec">
   <div class="wrap">
     <h2 class="reveal">From the laboratory to the field</h2>
     <div class="apps">
@@ -245,7 +281,7 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
 </section>
 
 <!-- GALLERY -->
-<section id="gallery" class="sec">
+<section id="gallery" class="sec alt">
   <div class="wrap">
     <h2 class="reveal">The desktop app</h2>
     <p class="sub reveal">Input, test, output and agent views of the same cemented-clay project.</p>
@@ -263,10 +299,10 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
 </section>
 
 <!-- EDITIONS -->
-<section id="editions" class="sec alt">
+<section id="editions" class="sec">
   <div class="wrap">
     <h2 class="reveal">Editions</h2>
-    <p class="sub reveal">The same solver in both. Choose by how you will use it.</p>
+    <p class="sub reveal">The same solver in both, with dynamic granular flow reserved for the Professional and Academic Research licences. Choose by how you will use it.</p>
     <div class="editions">
       <article class="ed reveal">
         <p class="tag">For students and teachers</p>
@@ -284,8 +320,9 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
           <span>Up to 50,000 particles per model</span>
           <span>Calculates on your own computer</span>
           <span>Reports and pictures carry an Education watermark</span>
+          <span>No dynamic granular flow (silos, drums, impact, tamping)</span>
         </div>
-        <p class="fine">For teaching and non-commercial academic research. Need larger models for your research? Ask for a free <a href="#contact" data-research>Academic Research licence</a>.</p>
+        <p class="fine">For teaching and non-commercial academic research. Need larger models or dynamic analysis for your research? Ask for a free <a href="#contact" data-research>Academic Research licence</a>.</p>
         <div class="dl">
           <button class="btn btn-primary" data-os="macos">macOS</button>
           <button class="btn btn-primary" data-os="windows">Windows</button>
@@ -297,6 +334,7 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
         <p class="price">On request</p>
         <ul class="ticks">
           <li>Licence for commercial and consulting projects</li>
+          <li>Dynamic granular flow: silos, hoppers, drums, impact and tamping</li>
           <li>Technical support from the developers</li>
           <li>Help with calibration on your laboratory data</li>
           <li>Batch runs on cloud GPUs</li>
@@ -310,7 +348,7 @@ granum-server --http 0.0.0.0:8787 --token $TOKEN
 </section>
 
 <!-- PAPER -->
-<section id="paper" class="sec">
+<section id="paper" class="sec alt">
   <div class="wrap">
     <div class="paper reveal">
       <div class="paper-text">
