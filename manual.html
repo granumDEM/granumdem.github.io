@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Granum User Manual</title>
+<meta name="description" content="How to install Granum, run a first test, build staged models, set up the chat assistant and connect AI agents through the built-in MCP server.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body class="manual-page">
+
+<header class="nav solid" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Granum home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="13" cy="27" r="9" class="m1"/><circle cx="28" cy="25" r="7" class="m2"/>
+        <circle cx="22" cy="12" r="6" class="m3"/><circle cx="33" cy="10" r="3" class="m2"/>
+        <circle cx="8" cy="11" r="2.5" class="m3"/>
+      </svg>
+      <span>Granum</span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#agents">Agents</a>
+      <a href="manual.html" aria-current="page">Manual</a>
+      <a href="index.html#editions">Download</a>
+      <a href="index.html#paper">Paper</a>
+      <a href="index.html#contact" class="btn btn-sm">Contact</a>
+    </nav>
+    <button class="menu" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="wrap man">
+  <aside class="toc" aria-label="Contents">
+    <p class="toc-h">User manual</p>
+    <a href="#install">1. Install</a>
+    <a href="#first">2. A first test</a>
+    <a href="#models">3. Staged models</a>
+    <a href="#chat">4. The chat assistant</a>
+    <a href="#mcp">5. Connect an AI agent (MCP)</a>
+    <a href="#tools">6. MCP tools</a>
+    <a href="#prompts">7. Working with an agent</a>
+    <a href="#limits">8. Editions and limits</a>
+    <a href="#trouble">9. Troubleshooting</a>
+  </aside>
+
+  <main class="doc">
+    <p class="eyebrow">Granum 0.1.1 · User manual</p>
+    <h1>Using Granum</h1>
+    <p class="lead-doc">Granum is a discrete element program for soil. You can drive it in three ways, which all work on the same project files: by hand in the desktop app, through the chat assistant built into the app, or from any AI agent that speaks the Model Context Protocol (MCP), such as Claude Code, Claude Desktop or Cursor. The MCP server is part of the program, so no adaptor or separate server is needed.</p>
+
+    <!-- 1 -->
+    <section id="install">
+      <h2>1. Install</h2>
+      <p>Download the Education edition for your system from the <a href="index.html#editions">download section</a> and unpack it. Each package holds the program, the chat agent <code>tigrim</code>, a quick start and the licence.</p>
+      <div class="os-grid">
+        <div class="os"><h3>macOS 11 or later</h3><p>Move <b>Granum.app</b> to Applications. The app is not notarised yet, so the first time right-click it and choose <b>Open</b>, or run:</p>
+<pre><code>xattr -dr com.apple.quarantine /Applications/Granum.app</code></pre>
+          <p>One app runs on Apple silicon and Intel Macs. The engine is Metal through wgpu.</p></div>
+        <div class="os"><h3>Windows 10 and 11</h3><p>Unzip <b>Granum-Education</b> anywhere and run <b>granum.exe</b>. If SmartScreen warns, choose <b>More info</b> and <b>Run anyway</b>. Keep <code>tigrim.exe</code> in the same folder.</p>
+          <p>The engine is CUDA on an NVIDIA card (see below), otherwise DirectX 12 through wgpu.</p></div>
+      </div>
+      <h3>The engines and the GPU</h3>
+      <p>Granum picks the fastest engine it finds: <b>CUDA</b> on an NVIDIA GPU, then <b>wgpu</b> (Metal or DirectX 12), then the <b>CPU</b> with all its cores. Very small specimens run on the CPU, where they are quicker. The CUDA engine compiles its kernels when it starts, so it needs the NVIDIA driver and the NVRTC library, but not a full CUDA installation:</p>
+      <ul>
+        <li><b>Windows:</b> install the CUDA toolkit (12.x or 13.x), or set <code>TELLUSDEM_NVRTC</code> to the full path of the NVRTC DLL; Granum looks for <code>nvrtc64_*.dll</code> on the PATH and in <code>%CUDA_PATH%\bin</code>.</li>
+        <li><b>macOS:</b> nothing to install; Granum uses Metal.</li>
+      </ul>
+      <p>The run log names the engine in use, for example <i>engine: GPU: NVIDIA GeForce RTX 4090 (CUDA)</i>.</p>
+    </section>
+
+    <!-- 2 -->
+    <section id="first">
+      <h2>2. A first test</h2>
+      <ol class="steps">
+        <li><b>Open an example.</b> Choose <b>File → Examples → Drained triaxial test on a uniform sand</b>. The examples cover triaxial tests on spheres and angular clumps, the oedometer, unconfined compression of cemented sand, deposition, the angle of repose, a strip footing, the clay and cement-admixed clay tests, and two staged models.</li>
+        <li><b>Check the input.</b> The Input workspace has four steps: <b>Particles</b> (materials and grading), <b>Specimen</b> (box size and packing), <b>Test</b> (stresses, strain and rate) and <b>Solver</b> (time step, damping, frames). As soon as the input is valid, the specimen appears in 3D and Granum lists its estimates: the number of particles, the time step, the steps to the end of the test and the expected contact overlap. Read the warnings before you run.</li>
+        <li><b>Run.</b> Press <b>Run test</b>. The grains move in the view each time the solver keeps a frame, and the log shows each stage.</li>
+        <li><b>Read the results.</b> The Output workspace plays the frames, colours the grains by displacement, velocity, spin, coordination or size, draws force chains and bonds with an optional section cut, and plots the test's curves with the current frame marked. The summary lists the values an engineer reads from the test, such as φ′ at peak and at large strain, the dilatancy angle and E<sub>50</sub>, with quality checks.</li>
+        <li><b>Save.</b> <b>File → Save project</b> writes a <code>.tellusdem</code> project file; its results are kept beside it in <code>.results.bin</code>. The Output workspace writes a PDF report with its picture and curve; animations and further pictures come from the chat assistant or the MCP tools.</li>
+      </ol>
+      <div class="tip"><b>Good practice.</b> Keep the specimen at least 8 to 10 of the largest grains wide, the mean contact overlap below about 1 % (raise the particle modulus if the estimate says it is higher), and the inertial number at 10<sup>−3</sup> or below for quasi-static tests. Spheres need rolling resistance (0.05 to 0.3) to reach the friction angles of real sand.</div>
+    </section>
+
+    <!-- 3 -->
+    <section id="models">
+      <h2>3. Staged models</h2>
+      <p>Problems other than laboratory tests, such as an excavation beside a wall, an embankment built in lifts or a footing loaded in steps, are built as in a finite element program. Choose <b>File → New model</b>; the steps become <b>Materials</b>, <b>Geometry</b>, <b>Staged construction</b> and <b>Solver</b>.</p>
+      <ul>
+        <li><b>Regions</b> fill boxes of the domain with grains of a material and grading, or mark a zone without grains that a later phase excavates.</li>
+        <li><b>Structures</b> are rigid footings, plates, walls or piles, as boxes or vertical cylinders.</li>
+        <li><b>Phases</b> run in order. In each one you set gravity (any g-level), the regions placed or excavated, each side of the domain (fixed, off, moving or held at a stress), each structure (fixed, moving, displaced, or loaded by a force or pressure), bonding and curing, and how the phase ends (equilibrium, time or steps). What a phase does not mention keeps its state.</li>
+        <li><b>Pore pressure.</b> A phase can be undrained or consolidating on a coarse pore-pressure grid; the permeability and a time scale make months of consolidation run in seconds.</li>
+        <li><b>Monitors</b> record settlement plates, deep points, inclinometers and piezometers over time.</li>
+      </ul>
+      <p class="note">Pore pressure and monitors are set in the project file (or by an agent with <code>set_model</code>); the app's Staged construction step does not show them yet.</p>
+      <ul class="hidden-list">
+      </ul>
+      <p>The examples <b>Model: excavation beside a rigid wall</b> and <b>Model: footing on a sand layer loaded in steps</b> are good starting points.</p>
+    </section>
+
+    <!-- 4 -->
+    <section id="chat">
+      <h2>4. The chat assistant</h2>
+      <p>The chat assistant is an AI agent inside the app. You write what you want in plain language, and it builds the model, runs it and shows the curves and pictures under its reply, with a PDF report when you ask. It works on a copy of your model, and the model it leaves is applied to yours as one step that <b>Undo</b> reverses.</p>
+      <h3>Set it up once</h3>
+      <ol class="steps">
+        <li>Open the assistant with <b>Chat assistant</b> (top right), then press <b>Settings</b>.</li>
+        <li><b>tigrim</b> should read <i>found</i>: it is the agent program that ships next to Granum. If not, press <b>Browse</b> and choose <code>tigrim</code> (<code>tigrim.exe</code> on Windows) from the Granum folder.</li>
+        <li>Choose the language model. The agent works with any OpenAI-compatible API; we tested it with <b>OpenRouter</b>, which gives one key for many models.
+          <div class="code"><pre><code><span class="c">API URL</span>   https://openrouter.ai/api/v1
+<span class="c">Model</span>     deepseek/deepseek-v4.1-flash
+<span class="c">API key</span>   sk-or-v1-...   <span class="c">(from openrouter.ai → Keys)</span></code></pre></div>
+          A fast, inexpensive model is enough for most work; a stronger model plans long staged models better. To attach photos or sketches, choose a model that takes images.</li>
+        <li><b>Python for the agent</b> (optional) lets the agent do hand checks with numpy. Leave it empty to have it found automatically.</li>
+        <li>Press <b>Done</b>. The key is kept in your Granum settings folder, not in project files.</li>
+      </ol>
+      <h3>Use it</h3>
+      <ul>
+        <li>Write the request and press <b>Enter</b> (<b>Shift+Enter</b> for a new line). You can add images.</li>
+        <li>While it works, the panel shows its steps; <b>Stop</b> ends the run. <b>Clear</b> starts a new conversation.</li>
+        <li>Curves, pictures and reports appear under the reply; <b>Open report</b> and <b>Show in folder</b> open the PDF.</li>
+        <li>Everything the agent did is in the model afterwards, so you can inspect, change and rerun it by hand.</li>
+      </ul>
+      <div class="example"><b>Example.</b> <i>"Oedometer test on a uniform 1–1.5 mm sand to 300 kPa. Show me e–log σv and the force chains."</i> In a test with DeepSeek V4.1 Flash the agent set up, ran and reported this in 25 s, and noted without being asked that the 9 mm box was only six grains wide.</div>
+    </section>
+
+    <!-- 5 -->
+    <section id="mcp">
+      <h2>5. Connect an AI agent (MCP)</h2>
+      <p>Run the program with <code>--mcp</code> and it becomes an MCP server on standard input and output, with 33 tools. Register it with your agent using the full path to the program:</p>
+      <table class="paths">
+        <tr><th>System</th><th>Path to the program</th></tr>
+        <tr><td>macOS</td><td><code>/Applications/Granum.app/Contents/MacOS/granum</code></td></tr>
+        <tr><td>Windows</td><td><code>C:\path\to\Granum-Education\granum.exe</code></td></tr>
+      </table>
+
+      <h3>Claude Code</h3>
+<div class="code"><pre><code>claude mcp add granum -- /Applications/Granum.app/Contents/MacOS/granum --mcp
+<span class="c"># for all your projects:</span>
+claude mcp add -s user granum -- /Applications/Granum.app/Contents/MacOS/granum --mcp</code></pre></div>
+      <p>Start <code>claude</code> and type <code>/mcp</code>: <b>granum</b> should be listed as connected.</p>
+
+      <h3>Claude Desktop</h3>
+      <p>Edit <code>claude_desktop_config.json</code> (Settings → Developer → Edit Config). It lives in <code>~/Library/Application Support/Claude/</code> on macOS and <code>%APPDATA%\Claude\</code> on Windows. Then restart Claude Desktop.</p>
+<div class="code"><pre><code>{
+  "mcpServers": {
+    "granum": {
+      "command": "/Applications/Granum.app/Contents/MacOS/granum",
+      "args": ["--mcp"]
+    }
+  }
+}</code></pre></div>
+
+      <h3>Cursor and other MCP clients</h3>
+      <p>Add the same entry to <code>~/.cursor/mcp.json</code> (or the project's <code>.cursor/mcp.json</code>). Any client that starts a stdio MCP server takes the same command and arguments.</p>
+
+      <h3>Options</h3>
+      <table class="paths">
+        <tr><th>Option</th><th>Effect</th></tr>
+        <tr><td><code>--open file.tellusdem</code></td><td>Start with that project loaded.</td></tr>
+        <tr><td><code>--autosave file.tellusdem</code></td><td>Save the project there after every tool that changes it, so you can open the agent's model in the app at any time.</td></tr>
+      </table>
+<div class="code"><pre><code>"args": ["--mcp", "--open", "/Users/me/granum/wall.tellusdem", "--autosave", "/Users/me/granum/wall.tellusdem"]</code></pre></div>
+      <div class="tip"><b>Agents and the app together.</b> With <code>--autosave</code>, the agent's model is a normal project file: open it in the desktop app to look at the 3D view, the curves and the frames of the agent's run, or change it by hand and let the agent continue from your version.</div>
+    </section>
+
+    <!-- 6 -->
+    <section id="tools">
+      <h2>6. MCP tools</h2>
+      <p>The agent sees these tools with their descriptions and argument lists, so it needs no other instructions. Units are mm, kPa, MPa (particle modulus) and kg/m³, with z upwards.</p>
+      <table class="tools-table">
+        <tr><th>Group</th><th>Tools</th><th>What they do</th></tr>
+        <tr><td>Project</td><td><code>new_project</code> <code>open_project</code> <code>save_project</code> <code>set_title</code> <code>get_model</code> <code>set_model</code> <code>validate</code></td><td>Start from a template or a file, read or replace the whole model, and check it with the estimates before a run.</td></tr>
+        <tr><td>Particles and test</td><td><code>add_material</code> <code>update_material</code> <code>delete_material</code> <code>set_grading</code> <code>set_specimen</code> <code>set_test</code> <code>set_bonds</code> <code>set_curing</code> <code>set_solver</code></td><td>Grains, shapes, clay aggregates, gradings, the specimen box, the test and its stresses, parallel bonds, cement curing and solver settings.</td></tr>
+        <tr><td>Staged models</td><td><code>add_region</code> <code>update_region</code> <code>delete_region</code> <code>add_structure</code> <code>update_structure</code> <code>delete_structure</code> <code>add_phase</code> <code>update_phase</code> <code>delete_phase</code></td><td>Soil regions, rigid structures and the construction phases.</td></tr>
+        <tr><td>Run and results</td><td><code>calculate</code> <code>get_results</code> <code>get_curve</code> <code>show_picture</code> <code>write_animation</code> <code>write_report</code> <code>get_compute</code> <code>set_compute</code></td><td>Run, read the summary and any curve, render pictures and animations, write a PDF report, and choose where to calculate (remote servers: Professional only).</td></tr>
+      </table>
+    </section>
+
+    <!-- 7 -->
+    <section id="prompts">
+      <h2>7. Working with an agent</h2>
+      <p>Say what you want as you would to a colleague: the soil, the test or structure, the stresses and what you want to see. The agent chooses sensible defaults for what you leave out and tells you which ones. Some requests that work well:</p>
+      <ul class="prompts">
+        <li>"Drained triaxial tests on a 0.5–1 mm angular sand at 50, 100 and 200 kPa. Give φ′ at peak and at large strain."</li>
+        <li>"Cement-admixed clay with 15 % cement, cured 28 days, unconfined compression. Show where the bonds break."</li>
+        <li>"Strip footing 40 mm wide on dense sand at 50 g, half model. Plot load against settlement and give N<sub>γ</sub>."</li>
+        <li>"Excavate 3 m beside a rigid wall in two stages and plot the wall's horizontal movement against depth."</li>
+        <li>"Write a PDF report of this test with the main pictures and your assessment of its limits."</li>
+      </ul>
+      <div class="tip"><b>Check the agent.</b> The agent works with the same tools and checks as you, but it can misjudge. Read the estimates and warnings it reports, look at the model in the app, and treat its results as you would a junior engineer's: check them before they inform a decision.</div>
+    </section>
+
+    <!-- 8 -->
+    <section id="limits">
+      <h2>8. Editions and limits</h2>
+      <table class="paths">
+        <tr><th></th><th>Education (free)</th><th>Academic Research</th><th>Professional</th></tr>
+        <tr><td>Use</td><td>Teaching, non-commercial research</td><td>Non-commercial research</td><td>Commercial and consulting work</td></tr>
+        <tr><td>Particles per model</td><td>50,000</td><td>No limit</td><td>No limit</td></tr>
+        <tr><td>Remote GPU server</td><td>No</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Reports and pictures</td><td>Education watermark</td><td>Education watermark</td><td>Clean</td></tr>
+        <tr><td>How to get it</td><td><a href="index.html#editions">Download</a></td><td colspan="2"><a href="index.html#contact">Contact us</a></td></tr>
+      </table>
+      <p>All laboratory tests, the three engines, the clay and cemented-clay model, staged models, pore pressure and the MCP server are in every edition. If you publish work done with Granum, please cite <a href="https://doi.org/10.5281/zenodo.23652515" target="_blank" rel="noopener">Youwai (2026), doi:10.5281/zenodo.23652515</a>.</p>
+    </section>
+
+    <!-- 9 -->
+    <section id="trouble">
+      <h2>9. Troubleshooting</h2>
+      <dl class="faq">
+        <dt>Granum runs on the CPU although I have an NVIDIA GPU.</dt>
+        <dd>The CUDA engine needs NVRTC; see <a href="#install">Install</a>. Without it Granum falls back to wgpu (DirectX 12), which also uses the GPU. Specimens of a few thousand grains or fewer run on the CPU on purpose.</dd>
+        <dt>"The Education edition is limited to 50,000 particles per model."</dt>
+        <dd>Make the specimen smaller or the grains larger; laboratory tests need far fewer particles. For research models, ask for an Academic Research licence.</dd>
+        <dt>The chat says "tigrim not found".</dt>
+        <dd>Keep <code>tigrim</code> beside the program, or set its path under Settings → tigrim → Browse.</dd>
+        <dt>The chat answers with an error from the provider.</dt>
+        <dd>Check the API URL, the model name exactly as the provider lists it, and that the key has credit.</dd>
+        <dt>Claude Code does not list granum under <code>/mcp</code>.</dt>
+        <dd>Use the full path to the program, include <code>--mcp</code>, and run <code>claude mcp list</code> to see the error. On macOS, open Granum.app once first so that macOS allows it to run.</dd>
+        <dt>The run warns about large overlaps or a high inertial number.</dt>
+        <dd>Raise the particle modulus, or load more slowly. Results from a run with these warnings are not quasi-static and should not be used.</dd>
+      </dl>
+      <p>Other questions: <a href="mailto:sompote.you@kmutt.ac.th">sompote.you@kmutt.ac.th</a>.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div><b>Granum</b> — discrete elements for soil.<br><span class="small">Youwai, S. (2026). Granum: an agentic, GPU-accelerated discrete element program for soil. Zenodo. <a href="https://doi.org/10.5281/zenodo.23652515" target="_blank" rel="noopener">doi:10.5281/zenodo.23652515</a></span></div>
+    <div class="small">© 2026 King Mongkut's University of Technology Thonburi</div>
+  </div>
+</footer>
+<script>
+  const m = document.querySelector(".menu"), l = document.querySelector(".links");
+  m.addEventListener("click", () => { const o = l.classList.toggle("open"); m.setAttribute("aria-expanded", o); });
+  // highlight the section in view
+  const links = [...document.querySelectorAll(".toc a")];
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-30% 0px -60% 0px" });
+  document.querySelectorAll(".doc section").forEach((s) => io.observe(s));
+</script>
+</body>
+</html>

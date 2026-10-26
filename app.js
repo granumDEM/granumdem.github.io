@@ -500,7 +500,7 @@
   const D = window.GRANUM_DOWNLOADS || {};
   const dlg = document.getElementById("dlg"), agree = document.getElementById("agree"), go = document.getElementById("dlgGo");
   const miss = document.getElementById("dlgMissing"), osTxt = document.getElementById("dlgOs");
-  const NAMES = { macos: "macOS 11 or later, Apple silicon and Intel (universal)", windows: "Windows 10 and 11, 64-bit", linux: "Linux x86-64, X11 or Wayland desktop" };
+  const NAMES = { macos: "macOS 11 or later, Apple silicon and Intel (universal)", windows: "Windows 10 and 11, 64-bit" };
   let available = false;
   const refresh = () => { const ok = agree.checked && available; go.classList.toggle("disabled", !ok); go.setAttribute("aria-disabled", !ok); };
   agree.addEventListener("change", refresh);
